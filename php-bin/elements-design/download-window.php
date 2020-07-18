@@ -1,0 +1,18 @@
+<?php
+echo "<div id='ParentDownloadIndicator'>"
+		. "<div id='ParentDownloadIndicator_2'>"
+			. "<div id='circularG'>"
+				. "<div id='circularG_1' class='circularG'></div>"
+				. "<div id='circularG_2' class='circularG'></div>"
+				. "<div id='circularG_3' class='circularG'></div>"
+				. "<div id='circularG_4' class='circularG'></div>"
+				. "<div id='circularG_5' class='circularG'></div>"
+				. "<div id='circularG_6' class='circularG'></div>"
+				. "<div id='circularG_7' class='circularG'></div>"
+				. "<div id='circularG_8' class='circularG'></div>"
+			. "</div>"
+			. "<div id='DownloadIndicatorText'><strong>Идет загрузка данных!<br>Пожалуйста подождите...</strong></div>"
+		. "</div>"
+		. "<div id='TB_overlay'></div>"
+	. "</div>"
+?>
