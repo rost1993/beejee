@@ -44,6 +44,9 @@
 								<span for="password" class="input-group-text fa fa-lock"></span>
 							</div>
 							<input type="password" class="form-control form-control-sm black-text" id="password" maxlength="50" placeholder="Пароль">
+							<div class="input-group-append">
+								<button class="btn btn-sm btn-outline-secondary" id="btnEye"><span class="fa fa-eye"></span></button>
+							</div>
 						</div>
 					</div>
 

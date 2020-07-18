@@ -3,9 +3,6 @@
 	$arr_path = explode("/", $path);
 	if($arr_path[count($arr_path) - 1] != 'papillon')
 		$path .= '/papillon';*/
-	
-	
-	echo password_hash('123', PASSWORD_BCRYPT);
 
 	include('php-bin/service-php/main_setting.php');
 ?>

@@ -7,10 +7,12 @@ var PATH_TO_SCRIPT = '/BeeJee/php-bin/handlers-events/';
 $(function () {
     'use strict';
 	
+	// Btn autorization
 	$('#btnAutorization').click(function() {
 		var query, login, pass;
 		if($('#login').val() === undefined || $('#login').val().trim().length == 0) {
 			alert('Не заполнено поле логин!');
+			$('#login').focus();
 			return;
 		} else {
 			login = $('#login').val();
@@ -18,6 +20,7 @@ $(function () {
 		
 		if($('#password').val() === undefined || $('#password').val().trim().length == 0) {
 			alert('Не заполнено поле пароль!');
+			$('#password').focus();
 			return;
 		} else {
 			pass = $('#password').val();
@@ -33,6 +36,14 @@ $(function () {
 				alert('При обработке запроса произошла непредвиденная ошибка!');
 			}
 		});
+	});
+	
+	// Btn change type input password/text
+	$('#btnEye').click(function() {
+		if($(this).closest('.col').find('input').prop('type') == 'password')
+			$(this).closest('.col').find('input').prop('type', 'text');
+		else
+			$(this).closest('.col').find('input').prop('type', 'password');
 	});
 
 });

@@ -55,7 +55,7 @@
 		case 0:
 			$navbar2 = "<ul class='navbar-nav mr-auto'>"
 						. "<li class='nav-item'>"
-							. "<a class='text-white nav-link' id='documentation' href='" . $root . "/pages/documentation.php' title='Переход на страницу с документацией'>Список задач</a>"
+							. "<a class='text-white nav-link' id='list-tasks' href='" . $root . "/pages/list-tasks.php' title='Список задач'>Список задач</a>"
 						. "</li>"						
 
 					. "</ul>"
@@ -64,7 +64,7 @@
 							. "<a class='text-white nav-link dropdown-toggle' href='#' id='user' ole='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Меню " . $userLogin . "</a>"
 							. "<div class='dropdown-menu dropdown-menu-right' aria-labelledby='user'>"
 								. "<div class='dropdown-divider'></div>"
-								. "<a class='dropdown-item' id='autorization' href='pages/autorization.php'><span class='fa fa-power-off'>&nbsp;</span>Войти на веб-ресурс</a>"
+								. "<a class='dropdown-item' id='autorization' href='" . $root . "/pages/autorization.php'><span class='fa fa-power-off'>&nbsp;</span>Войти на веб-ресурс</a>"
 							. "</div>"
 						. "</li>"
 					. "</ul>"
