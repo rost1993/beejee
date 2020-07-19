@@ -14,6 +14,6 @@
 	echo "</head>";
 	
 	include($root_web . '/php-bin/elements-design/footer-top.php');
-	/*include($root_web . '/php-bin/elements-design/modal-window.php');
-	include($root_web . '/php-bin/elements-design/ispoln-interface.php');*/
+	include($root_web . '/php-bin/elements-design/modal-window.php');
+	//include($root_web . '/php-bin/elements-design/ispoln-interface.php');*/
 ?>

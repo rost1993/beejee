@@ -5,6 +5,7 @@
 	
 	//require_once('../classes/Spr.php');
 	require_once('../classes/User.php');
+	require_once('../classes/Tasks.php');
 	//require_once('../classes/Rights.php');
 	
 	setlocale(LC_CTYPE, 'ru_RU.UTF8');
@@ -25,6 +26,17 @@
 		
 		return true;
 	}
+	
+	function save() {
+		if(empty($_POST['nsyst']) || empty($_POST['JSON']))
+			return false;
+		
+		$tasks = new Tasks();
+		if($tasks->save($_POST) === false)
+			return false;
+		echo json_encode(array(1));
+		return true;
+	}
 
 	/*************************************************************************/
 	if(empty($_POST['option']))
@@ -35,6 +47,11 @@
 		// Регистрация нового пользователя
 		case 1:
 			if(!painting_list_tasks())
+				ServiceFunction::returnErrorCode(-1);
+			break;
+		
+		case 2:
+			if(!save())
 				ServiceFunction::returnErrorCode(-1);
 			break;
 

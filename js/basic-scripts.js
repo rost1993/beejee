@@ -27,6 +27,41 @@ $(function () {
 			});
 			break;
 	}
+	
+	$('#btnAddTask').click(function() {
+		$('#ModalWindowTask').modal('toggle');
+	});
+	
+	// Save task
+	$('#btnSaveTask').click(function() {
+		var arrSaveItem = {};		
+		var resultCollectionsItems = getArrayItemsForms('#ModalWindowTask input, #ModalWindowTask textarea');
+		if(resultCollectionsItems[0]) {
+			arrSaveItem = resultCollectionsItems[1];
+		} else {
+			showModal('ModalWindow', resultCollectionsItems[1]);
+			return;
+		}	
+		
+		var query = 'option=2&JSON=' + JSON.stringify(arrSaveItem) + '&nsyst=-1';
+		/*if($('#nsyst').html().trim().length == 0)
+			query += '&nsyst=-1';
+		else
+			query += '&nsyst=' + $('#nsyst').html().trim();*/
+		
+		
+		AjaxQuery('POST', PATH_TO_SCRIPT + 'list-tasks-events.php', query, function(result) {
+			var res = eval(result);
+			if(res[0] == -1) {
+				showModal('ModalWindow', 'При обработке запроса произошла ошибка! Повторите запрос!');
+			} else if(res[0] == 1) {
+				closeModal('ModalWindowTask');
+			} else {
+				showModal('ModalWindow', 'При обработке запроса произошла непредвиденная ошибка!');
+			}
+		});
+		
+	});
 
 });
 
