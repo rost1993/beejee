@@ -1,8 +1,4 @@
-/*
-	Copyright: Rostislav Gashin (rost1993), 2019
-*/
-
-var PATH_TO_SCRIPT = '/BeeJee/php-bin/handlers-events/';
+var PATH_TO_SCRIPT = '../php-bin/handlers-events/';
 
 $(function () {
     'use strict';
@@ -31,7 +27,7 @@ $(function () {
 			if(res[0] == -1) {
 				showModal('ModalWindow', 'При обработке запроса произошла ошибка! Повторите запрос!');
 			} else if(res[0] == 1) {
-				window.location = '/beejee/index.php';
+				window.location = '../index.php';
 			} else {
 				showModal('ModalWindow', 'При обработке запроса произошла непредвиденная ошибка!');
 			}
