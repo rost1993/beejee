@@ -14,30 +14,11 @@
 	
 	Session::start();
 	$login = Session::get('login');
-	$userRole = 0;
-	$userLogin = '';
-	//$userRole = Session::get('role');
-	
-	/*$fam = Session::get('fam');
-	$imj = Session::get('imj');
-	$otch = Session::get('otch');
-	$fio =  "  <span class='fa fa-user-o'></span>&nbsp;" . $fam . ' ' . mb_substr($imj, 0, 1) . '.' . mb_substr($otch, 0, 1) . ". ";*/
+	$user_role = 0;
+	$user_login = '';
+	$user_role = Session::get('role');
+	$user_login = Session::get('login');
 	Session::commit();
-	
-
-	// Определяем тип надписи левого бокового меню
-	/*if($login != null) {
-		if($kod_slugba == null || $text_slugba == null)
-			$userLogin = "  <span class='fa fa-user-circle'></span>&nbsp;" . $login . " ";
-			//$userLogin = "  <span class='fa fa-user-circle'></span>&nbsp;" . $fio . " ";
-		else
-			$userLogin = "  <span class='fa fa-user-o'></span>&nbsp;" . $login . " - " . $text_slugba . " ";
-	} else {
-		if($kod_slugba == null || $text_slugba == null)
-			$userLogin = " <span class='fa fa-user-circle-o'></span>&nbsp;  Анонимный пользователь ";
-		else
-			$userLogin = "  <span class='fa fa-user-o'></span>&nbsp;" . $text_slugba . " ";
-	}*/
 
 	$navbar1 = "<nav class='navbar fixed-top navbar-expand-lg bg-dark'>"
 			. "<a class='navbar-brand' href='" . $root . "/index.php' title='BeeJee Team'>"
@@ -48,10 +29,10 @@
 		. "<div class='collapse navbar-collapse' id='navbarSupportedContent'>";
 	
 	// Получаем уровень доступа у пользователя
-	if($userRole == null)
-		$userRole = 0;
+	if($user_role == null)
+		$user_role = 0;
 	
-	switch($userRole) {
+	switch($user_role) {
 		case 0:
 			$navbar2 = "<ul class='navbar-nav mr-auto'>"
 						. "<li class='nav-item'>"
@@ -61,7 +42,7 @@
 					. "</ul>"
 					. "<ul class='navbar-nav navbar-right'>"
 						. "<li class='nav-item dropdown'>"
-							. "<a class='text-white nav-link dropdown-toggle' href='#' id='user' ole='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Меню " . $userLogin . "</a>"
+							. "<a class='text-white nav-link dropdown-toggle' href='#' id='user' ole='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Меню " . $user_login . "</a>"
 							. "<div class='dropdown-menu dropdown-menu-right' aria-labelledby='user'>"
 								. "<div class='dropdown-divider'></div>"
 								. "<a class='dropdown-item' id='autorization' href='" . $root . "/pages/autorization.php'><span class='fa fa-power-off'>&nbsp;</span>Войти на веб-ресурс</a>"
@@ -75,31 +56,13 @@
 			$navbar2 = "<ul class='navbar-nav mr-auto'>"
 						
 						. "<li class='nav-item'>"
-							. "<a class='text-white nav-link' id='contacts' href='" . $root . "/pages/list-device.php' title='ЖУРНАЛ УЧЕТА '>Журнал учета</a>"
+							. "<a class='text-white nav-link' id='contacts' href='" . $root . "/pages/list-tasks.php' title='ЖУРНАЛ УЧЕТА '>Журнал учета</a>"
 						. "</li>"
-						. "<li class='nav-item dropdown'>"
-							. "<a class='text-white nav-link dropdown-toggle' href='#' id='user' ole='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Отчеты</a>"
-							. "<div class='dropdown-menu dropdown-menu-right' aria-labelledby='user'>"
-								. "<a class='dropdown-item' id='otchet' href='" . $root . "/pages/otchet.php'><span class='fa fa-bar-chart'>&nbsp;</span>Ежемесячный отчет в ИЦ</a>"
-								. "<a class='dropdown-item' id='otchet_kvart' href='" . $root . "/pages/otchet_kvart.php'><span class='fa fa-bar-chart'>&nbsp;</span>Ежеквартальный отчет в ИЦ</a>"
-						
-								
-						. "</li>"
-
-						. "<li class='nav-item'>"
-							. "<a class='text-white nav-link' id='documentation' href='" . $root . "/pages/documentation.php' title='Переход на страницу с документацией'>Документация</a>"
-						. "</li>"
-						
-						. "<li class='nav-item'>"
-							. "<a class='text-white nav-link' id='contacts' href='" . $root . "/pages/contacts.php' title='Переход на страницу с контактными данными сотрудников'>Контакты</a>"
-						. "</li>"
-						
 						. "</ul>"
 					. "<ul class='navbar-nav navbar-right'>"
 						. "<li class='nav-item dropdown'>"
-							. "<a class='text-white nav-link dropdown-toggle' href='#' id='user' ole='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Меню " . $fio  . "</a>"
+							. "<a class='text-white nav-link dropdown-toggle' href='#' id='user' ole='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Меню " . $user_login  . "</a>"
 							. "<div class='dropdown-menu dropdown-menu-right' aria-labelledby='user'>"
-								. "<a class='dropdown-item' id='edit' href='" . $root . "/pages/edit.php'><span class='fa fa-vcard-o'>&nbsp;</span>Редактировать данные пользователя</a>"
 								. "<div class='dropdown-divider'></div>"
 								. "<a class='dropdown-item' id='autorization' href='" . $root . "/php-bin/service-php/exit.php'><span class='fa fa-close'>&nbsp;</span>Выход</a>"
 							. "</div>"
@@ -111,16 +74,16 @@
 		default:
 			$navbar2 = "<ul class='navbar-nav mr-auto'>"
 						. "<li class='nav-item'>"
-							. "<a class='text-white nav-link' id='contacts' href='" . $root . "/pages/contacts.php' title='Переход на страницу с контактными данными сотрудников'>Контакты</a>"
-						. "</li>"
+							. "<a class='text-white nav-link' id='list-tasks' href='" . $root . "/pages/list-tasks.php' title='Список задач'>Список задач</a>"
+						. "</li>"						
+
 					. "</ul>"
-					
 					. "<ul class='navbar-nav navbar-right'>"
 						. "<li class='nav-item dropdown'>"
-							. "<a class='text-white nav-link dropdown-toggle' href='#' id='user' ole='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Меню " . $userLogin . "</a>"
+							. "<a class='text-white nav-link dropdown-toggle' href='#' id='user' ole='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'>Меню " . $user_login . "</a>"
 							. "<div class='dropdown-menu dropdown-menu-right' aria-labelledby='user'>"
 								. "<div class='dropdown-divider'></div>"
-								. "<a class='dropdown-item' id='autorization' href='/pages/autorization.php'><span class='fa fa-power-off'>&nbsp;</span>Войти на веб-ресурс</a>"
+								. "<a class='dropdown-item' id='autorization' href='" . $root . "/pages/autorization.php'><span class='fa fa-power-off'>&nbsp;</span>Войти на веб-ресурс</a>"
 							. "</div>"
 						. "</li>"
 					. "</ul>"

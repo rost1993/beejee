@@ -97,7 +97,7 @@ function getArrayItemsForms(searchItems) {
 			if($(this).prop('type') == 'CHECKBOX')
 				arrayTemp['value'] = $(this).prop('checked');
 			else
-				arrayTemp['value'] = $(this).val().trim().toUpperCase();
+				arrayTemp['value'] = $(this).val().trim();
 			
 			arrayTemp['type'] = $(this).data('datatype');
 			arrSaveItem[nameItem] = arrayTemp;
@@ -111,7 +111,7 @@ function getArrayItemsForms(searchItems) {
 				if(($(this).prop('type').toUpperCase() == 'CHECKBOX') || ($(this).prop('type').toUpperCase() == 'RADIO'))
 					arrayTemp['value'] = $(this).prop('checked');
 				else
-					arrayTemp['value'] = $(this).val().trim().toUpperCase();
+					arrayTemp['value'] = $(this).val().trim();
 			}
 			
 			arrayTemp['type'] = $(this).data('datatype');

@@ -1,9 +1,9 @@
 <?php
 
-session_name('PAPILLON');
+session_name('BeeJee');
 session_start();
 
-$root = 'http://' . $_SERVER['HTTP_HOST'] . '/index.php';	// Путь куда необходимо редиректить в случае выхода
+$root = 'http://' . $_SERVER['HTTP_HOST'] . '/beejee/index.php';	// Путь куда необходимо редиректить в случае выхода
 
 $_SESSION = array();
 session_unset();

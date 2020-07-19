@@ -24,6 +24,13 @@ class Tasks {
 		
 		if(!ServiceFunction::check_number($id))
 			return false;
+		
+		Session::start();
+		$role = Session::get('role');
+		Session::commit();
+		
+		if(($role == 0 || $role == null) && ($id != -1))
+			return false;
 
 		// Определяем тип вставка или обновление
 		$flg_insert = false;
@@ -43,8 +50,33 @@ class Tasks {
 		return $id;
 	}
 
-	public function get_list_tasks() {
-		$sqlQuery = "SELECT * FROM " . $this->table;
+	public function get_list_tasks($order_field = 'name_user', $order_type = 1) {
+		$sorting = ($order_type == 1) ? ' ASC ' : 'DESC' ;
+		
+		$sqlQuery = "SELECT * FROM " . $this->table . " ORDER BY " . $order_field . " " . $sorting;
+		$mysql = new mysqlRun();
+		if(!$mysql->mysqlQuery($sqlQuery, mysqlRun::MYSQL_SELECT))
+			return false;
+		return $mysql->resultQuery;
+	}
+	
+	public function remove($id) {
+		if(!ServiceFunction::check_number($id))
+			return false;
+
+		$sqlQuery = "DELETE FROM " . $this->table . " WHERE id=" . $id;
+		$mysql = new mysqlRun();
+		if(!$mysql->mysqlQuery($sqlQuery, mysqlRun::MYSQL_OTHER))
+			return false;
+		
+		return true;
+	}
+	
+	public function get($id) {
+		if(!ServiceFunction::check_number($id))
+			return false;
+
+		$sqlQuery = "SELECT * FROM " . $this->table . " WHERE id=" . $id;
 		$mysql = new mysqlRun();
 		if(!$mysql->mysqlQuery($sqlQuery, mysqlRun::MYSQL_SELECT))
 			return false;

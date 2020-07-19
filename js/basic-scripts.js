@@ -29,6 +29,7 @@ $(function () {
 	}
 	
 	$('#btnAddTask').click(function() {
+		$('#ModalWindowTask').find('#btnSaveTask').data('id', '-1');
 		$('#ModalWindowTask').modal('toggle');
 	});
 	
@@ -43,13 +44,7 @@ $(function () {
 			return;
 		}	
 		
-		var query = 'option=2&JSON=' + JSON.stringify(arrSaveItem) + '&nsyst=-1';
-		/*if($('#nsyst').html().trim().length == 0)
-			query += '&nsyst=-1';
-		else
-			query += '&nsyst=' + $('#nsyst').html().trim();*/
-		
-		
+		var query = 'option=2&JSON=' + JSON.stringify(arrSaveItem) + '&nsyst=' + $(this).data('id');		
 		AjaxQuery('POST', PATH_TO_SCRIPT + 'list-tasks-events.php', query, function(result) {
 			var res = eval(result);
 			if(res[0] == -1) {
@@ -65,14 +60,35 @@ $(function () {
 	
 	$('#accordion').on('click', '.page-link', function() {
 		var page = Number($(this).data('page'));
-		var sort_field = $('#select_sort_field').val();
-		var type_sort;
+		var order_field = $('#select_order_field').val();
+		var order_type;
 		$("[type='radio']").each(function() {
 			if($(this).prop('checked'))
-				type_sort = $(this).val();
+				order_type = $(this).val();
 		});
 		
-		var query = 'option=1&page=' + page + '&sort_field=' + sort_field + '&type_sort=' + type_sort;
+		var query = 'option=1&page=' + page + '&order_field=' + order_field + '&order_type=' + order_type;
+		AjaxQuery('POST', PATH_TO_SCRIPT + 'list-tasks-events.php', query, function(result) {
+			var res = eval(result);
+			if(res[0] == -1) {
+				showModal('ModalWindow', 'При обработке запроса произошла ошибка! Повторите запрос!');
+			} else if(res[0] == 1) {
+				$('#accordion').html(res[1]);
+			} else {
+				showModal('ModalWindow', 'При обработке запроса произошла непредвиденная ошибка!');
+			}
+		});
+	});
+	
+	$("#select_order_field, [type='radio']").change(function() {
+		var order_field = $('#select_order_field').val();
+		var order_type;
+		$("[type='radio']").each(function() {
+			if($(this).prop('checked'))
+				order_type = $(this).val();
+		});
+		
+		var query = 'option=1&page=1&order_field=' + order_field + '&order_type=' + order_type;
 		AjaxQuery('POST', PATH_TO_SCRIPT + 'list-tasks-events.php', query, function(result) {
 			var res = eval(result);
 			if(res[0] == -1) {
@@ -85,5 +101,37 @@ $(function () {
 		});
 	});
 
+
+	$('#accordion').on('click', '.btnRemoveTask', function() {
+		var item_task = $(this).closest('.card');
+		AjaxQuery('POST', PATH_TO_SCRIPT + 'list-tasks-events.php', 'option=3&id=' + $(this).data('id'), function(result) {
+			var res = eval(result);
+			if(res[0] == -1) {
+				showModal('ModalWindow', 'При обработке запроса произошла ошибка! Повторите запрос!');
+			} else if(res[0] == 1) {
+				showModal('ModalWindow', 'Задача удалена!');
+				$(item_task).remove();
+			} else {
+				showModal('ModalWindow', 'При обработке запроса произошла непредвиденная ошибка!');
+			}
+		});
+	});
+	
+	$('#accordion').on('click', '.btnEditTask', function() {
+		AjaxQuery('POST', PATH_TO_SCRIPT + 'list-tasks-events.php', 'option=4&id=' + $(this).data('id'), function(result) {
+			var res = eval(result);
+			if(res[0] == -1) {
+				showModal('ModalWindow', 'При обработке запроса произошла ошибка! Повторите запрос!');
+			} else if(res[0] == 1) {
+				$('#ModalWindowTask').find('#name_user').val(res[2]);
+				$('#ModalWindowTask').find('#e_mail').val(res[3]);
+				$('#ModalWindowTask').find('#text_task').val(res[4]);
+				$('#ModalWindowTask').find('#btnSaveTask').data('id', res[1]);
+				$('#ModalWindowTask').modal('toggle');
+			} else {
+				showModal('ModalWindow', 'При обработке запроса произошла непредвиденная ошибка!');
+			}
+		});
+	});
 });
 
