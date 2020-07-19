@@ -1,11 +1,4 @@
-/*
-	Служебный JavaScript предназначенный для описания различных функций и обработчиков, связанных с транспортными средствами
-	Используем схему разделения функций и полномочий чтобы было удобнее вностиь изменения
-	
-	Copyright: Rostislav Gashin (rost1993), 2019
-*/
-
-var PATH_TO_SCRIPT = '/beejee/php-bin/handlers-events/';
+var PATH_TO_SCRIPT = '../php-bin/handlers-events/';
 
 $(function () {
     'use strict';
@@ -66,6 +59,7 @@ $(function () {
 		
 	});
 	
+	// Change page
 	$('#accordion').on('click', '.page-link', function() {
 		var page = Number($(this).data('page'));
 		var order_field = $('#select_order_field').val();
@@ -88,6 +82,7 @@ $(function () {
 		});
 	});
 	
+	// Change type sorting
 	$("#select_order_field, [type='radio']").change(function() {
 		var order_field = $('#select_order_field').val();
 		var order_type;
@@ -109,7 +104,7 @@ $(function () {
 		});
 	});
 
-
+	// Remove task
 	$('#accordion').on('click', '.btnRemoveTask', function() {
 		var item_task = $(this).closest('.card');
 		AjaxQuery('POST', PATH_TO_SCRIPT + 'list-tasks-events.php', 'option=3&id=' + $(this).data('id'), function(result) {
@@ -125,6 +120,7 @@ $(function () {
 		});
 	});
 	
+	// Edit task
 	$('#accordion').on('click', '.btnEditTask', function() {
 		AjaxQuery('POST', PATH_TO_SCRIPT + 'list-tasks-events.php', 'option=4&id=' + $(this).data('id'), function(result) {
 			var res = eval(result);
@@ -142,9 +138,9 @@ $(function () {
 		});
 	});
 	
+	// Change status task
 	$('#accordion').on('click', '.btnCheckTask', function() {
 		AjaxQuery('POST', PATH_TO_SCRIPT + 'list-tasks-events.php', 'option=5&id=' + $(this).data('id'), function(result) {
-			alert(result);
 			var res = eval(result);
 			if(res[0] == -1) {
 				showModal('ModalWindow', 'При обработке запроса произошла ошибка! Повторите запрос!');

@@ -1,28 +1,16 @@
 'use strict';
 
-function AjaxQuery(method, url, query, callback, fileDownload, statusError) {
+// Ajax JQuery
+function AjaxQuery(method, url, query, callback, statusError) {
 	var result;
-	var cacheVal, processDataVal, contentTypeVal;
-	
-	fileDownload = (typeof fileDownload !== undefined) ? fileDownload : false;
-	
-	if(fileDownload === undefined || fileDownload == false) {
-		cacheVal = true;
-		processDataVal = true;
-		contentTypeVal = 'application/x-www-form-urlencoded';
-	} else {
-		cacheVal = false;
-		processDataVal = false;
-		contentTypeVal = false;
-	}
-	
+
 	$.ajax({
 		type: method,
 		url: url,
 		data: query,
-		cache: cacheVal,
-		processData: processDataVal,
-		contentType: contentTypeVal,
+		cache: true,
+		processData: true,
+		contentType: 'application/x-www-form-urlencoded',
 		
 		success: function(data) {
 			if(callback != null)
@@ -47,12 +35,7 @@ function AjaxQuery(method, url, query, callback, fileDownload, statusError) {
 	});
 }
 
-/* 
- * Функция всплытия модального окна.
- * message - сообщение, которое необходимо вывести
- * modalName - ID модального окна, которое необходимо вызвать
- * modalOpen - параметр, если установлен в TRUE, то добавляет класс modal-open и убирает полосу прокрутки (по умолчанию FALSE)
- */
+// Show modal window
 function showModal(modalName, message, modalOpen)
 {
 	document.getElementById(modalName).getElementsByTagName('h4')[0].innerHTML = message;	
@@ -70,6 +53,7 @@ function showModal(modalName, message, modalOpen)
 		$('#closeButton').data('modalOpen', '0');
 }
 
+// Get items
 function getArrayItemsForms(searchItems) {
 	var flgCheck = true;
 	var messageError = '';
@@ -132,10 +116,7 @@ function getArrayItemsForms(searchItems) {
 	return arrayResult;
 }
 
-/* 
- * Функция закрытия диалогового модального окна
- * modalname - ID модального окна, которое необходимо закрыть
- */
+// Close modal window
 function closeModal(modalName) {
 	$('#' + modalName).modal('hide');
 }
