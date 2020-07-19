@@ -35,11 +35,11 @@ $(function () {
 	
 	// Save task
 	$('#btnSaveTask').click(function() {
-		/*var reg = /\S+@\S+\.\S+/;
+		var reg = /\S+@\S+\.\S+/;
 		if(!reg.test($('#e_mail').val())) {
 			showModal('ModalWindow', 'Некорректный email!');
 			return;
-		}*/
+		}
 		
 		var arrSaveItem = {};		
 		var resultCollectionsItems = getArrayItemsForms('#ModalWindowTask input, #ModalWindowTask textarea');
@@ -144,6 +144,7 @@ $(function () {
 	
 	$('#accordion').on('click', '.btnCheckTask', function() {
 		AjaxQuery('POST', PATH_TO_SCRIPT + 'list-tasks-events.php', 'option=5&id=' + $(this).data('id'), function(result) {
+			alert(result);
 			var res = eval(result);
 			if(res[0] == -1) {
 				showModal('ModalWindow', 'При обработке запроса произошла ошибка! Повторите запрос!');

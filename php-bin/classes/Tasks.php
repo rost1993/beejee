@@ -68,6 +68,13 @@ class Tasks {
 	public function remove($id) {
 		if(!ServiceFunction::check_number($id))
 			return false;
+		
+		Session::start();
+		$role = Session::get('role');
+		Session::commit();
+		
+		if(($role == 0 || $role == null))
+			return false;
 
 		$sqlQuery = "DELETE FROM " . $this->table . " WHERE id=" . $id;
 		$mysql = new mysqlRun();
@@ -80,6 +87,13 @@ class Tasks {
 	public function get($id) {
 		if(!ServiceFunction::check_number($id))
 			return false;
+		
+		Session::start();
+		$role = Session::get('role');
+		Session::commit();
+		
+		if(($role == 0 || $role == null))
+			return false;
 
 		$sqlQuery = "SELECT * FROM " . $this->table . " WHERE id=" . $id;
 		$mysql = new mysqlRun();
@@ -90,6 +104,13 @@ class Tasks {
 	
 	public function change_status($id) {
 		if(!ServiceFunction::check_number($id))
+			return false;
+		
+		Session::start();
+		$role = Session::get('role');
+		Session::commit();
+		
+		if(($role == 0 || $role == null))
 			return false;
 		
 		$sqlQuery = "UPDATE " . $this->table . " SET status=MOD(status + 1, 2)  WHERE id=" . $id;
