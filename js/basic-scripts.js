@@ -20,7 +20,7 @@ $(function () {
 				if(res[0] == -1) {
 					alert('При обработке запроса произошла ошибка! Повторите запрос!');
 				} else if(res[0] == 1) {
-					$('#card-header-pagination').html(res[1]);
+					$('#accordion').html(res[1]);
 				} else {
 					alert('При обработке запроса произошла непредвиденная ошибка!');
 				}

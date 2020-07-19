@@ -43,6 +43,14 @@ class Tasks {
 		return $id;
 	}
 
+	public function get_list_tasks() {
+		$sqlQuery = "SELECT * FROM " . $this->table;
+		$mysql = new mysqlRun();
+		if(!$mysql->mysqlQuery($sqlQuery, mysqlRun::MYSQL_SELECT))
+			return false;
+		return $mysql->resultQuery;
+	}
+
 }
 
 ?>
