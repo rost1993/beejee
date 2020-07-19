@@ -22,6 +22,9 @@ $(function () {
 	}
 	
 	$('#btnAddTask').click(function() {
+		$('#ModalWindowTask').find('#name_user').val('');
+		$('#ModalWindowTask').find('#e_mail').val('');
+		$('#ModalWindowTask').find('#text_task').val('');
 		$('#ModalWindowTask').find('#btnSaveTask').data('id', '-1');
 		$('#ModalWindowTask').modal('toggle');
 	});

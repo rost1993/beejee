@@ -11,7 +11,7 @@ $(function () {
 	$('#btnAutorization').click(function() {
 		var query, login, pass;
 		if($('#login').val() === undefined || $('#login').val().trim().length == 0) {
-			alert('Не заполнено поле логин!');
+			showModal('ModalWindow', 'Не заполнено поле логин!');
 			$('#login').focus();
 			return;
 		} else {
@@ -19,7 +19,7 @@ $(function () {
 		}
 		
 		if($('#password').val() === undefined || $('#password').val().trim().length == 0) {
-			alert('Не заполнено поле пароль!');
+			showModal('ModalWindow', 'Не заполнено поле пароль!');
 			$('#password').focus();
 			return;
 		} else {
@@ -29,11 +29,11 @@ $(function () {
 		AjaxQuery('POST', PATH_TO_SCRIPT + 'user-events.php', query, function(result) {
 			var res = eval(result);
 			if(res[0] == -1) {
-				alert('При обработке запроса произошла ошибка! Повторите запрос!');
+				showModal('ModalWindow', 'При обработке запроса произошла ошибка! Повторите запрос!');
 			} else if(res[0] == 1) {
 				window.location = '/beejee/index.php';
 			} else {
-				alert('При обработке запроса произошла непредвиденная ошибка!');
+				showModal('ModalWindow', 'При обработке запроса произошла непредвиденная ошибка!');
 			}
 		});
 	});

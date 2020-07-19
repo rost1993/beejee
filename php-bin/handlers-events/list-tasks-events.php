@@ -11,7 +11,7 @@
 		if((count($data) % 3) != 0)
 			$count_page++;
 		
-		$count_page = ($count_page == 1) ? $count_page + 1 : $count_page;
+		//$count_page = ($count_page == 1) ? $count_page + 1 : $count_page;
 		
 		$html = "<nav>";
 		$html .= "<ul class='pagination justify-content-center'>";
