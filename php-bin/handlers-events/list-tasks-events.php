@@ -10,7 +10,7 @@
 	
 	setlocale(LC_CTYPE, 'ru_RU.UTF8');
 
-	function rendering_panagination($data) {
+	function rendering_panagination($data, $page) {
 		
 		$count_page = count($data) / 3;
 		if((count($data) % 3) != 0)
@@ -18,15 +18,17 @@
 		
 		$html = "<nav>";
 		$html .= "<ul class='pagination justify-content-center'>";
-		for($i = 1; $i < $count_page; $i++)
-			$html .= "<li class='page-item'><a class='page-link' href='#'>" . $i . "</a></li>";
+		for($i = 1; $i < $count_page; $i++) {
+			$active = ($page == $i) ? ' active ': '';
+			$html .= "<li class='page-item " . $active . "'><button class='page-link' data-page='" . $i . "'>" . $i . "</button></li>";
+		}
 
 		$html .= "</ul></nav>";
 		return $html;
 	}
 	
 	function save() {
-		if(empty($_POST['nsyst']) || empty($_POST['JSON']))
+		if(empty($_POST['nsyst']) || empty($_POST['JSON']) || empty($_POST['page']))
 			return false;
 		
 		$tasks = new Tasks();
@@ -42,16 +44,20 @@
 		if(($data = $tasks->get_list_tasks()) === false)
 			return false;
 
-		$html = rendering_list($data);
-		$html .= rendering_panagination($data);
+		$html = rendering_list($data, addslashes($_POST['page']));
+		$html .= rendering_panagination($data, addslashes($_POST['page']));
 		
 		echo json_encode(array(1, $html));
 		return true;
 	}
 	
-	function rendering_list($data) {
+	function rendering_list($data, $page) {
 		$html = "";
-		for($i = 0; $i < count($data); $i++) {
+		
+		$start_page = ($page - 1) * 3;
+		$end_page = (count($data) > ($start_page + 3)) ? $start_page + 3: count($data);
+		
+		for($i = $start_page; $i < $end_page; $i++) {
 			$id = 'task_' . $i;
 			$id_collapse = "collapse_" . $i;
 			$html .= "<div class='card mb-2'>"

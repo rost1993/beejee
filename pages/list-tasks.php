@@ -18,7 +18,7 @@
 				<div class="input-group-prepend">
 					<span class="input-group-text">Сортировать по полю</span>
 				</div>
-				<select class="custom-select custom-select black-text">
+				<select class="custom-select custom-select black-text" id="select_sort_field">
 					<option value="name_user">Имя пользователя</option>
 					<option value="e_mail">E-mail</option>
 					<option value="status">Статус</option>
@@ -28,15 +28,13 @@
 		
 		<div class="col-5">
 			<label class="" for="radioSortPlus">По возрастанию</label>
-			<input type="radio" id="radioSortPlus" name="sorting_tasks">
+			<input type="radio" id="radioSortPlus" name="sorting_tasks" value="1" checked>
 			
 			<label class="" for="radioSortMinus">По убыванию</label>
-			<input type="radio" id="radioSortMinus" name="sorting_tasks">
+			<input type="radio" id="radioSortMinus" name="sorting_tasks" value="2">
 		</div>
-			
-			
-			
-		</div>
+
+	</div>
 	
 	<div class="row">
 		<div class="col text-center">
