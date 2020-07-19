@@ -16,7 +16,7 @@ class Tasks {
 	
 	
 	// Функция сохранения объекта
-	public function save($array_data) {
+	public function save($array_data, &$msg_error) {
 		if(empty($array_data['JSON']) || empty($array_data['nsyst']))
 			return false;
 		
@@ -38,6 +38,11 @@ class Tasks {
 			$flg_insert = true;
 		else
 			$flg_insert = false;
+		
+		if(!ServiceFunction::check_field($array_data['JSON'], $message_error)) {
+			$msg_error = $message_error;
+			return false;
+		}
 		
 		$sqlQuery = ServiceFunction::generate_sql_query($flg_insert, $array_data['JSON'], $id, $this->table);	
 		$mysql = new mysqlRun();

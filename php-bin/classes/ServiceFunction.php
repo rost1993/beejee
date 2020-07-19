@@ -7,28 +7,6 @@ class ServiceFunction {
 		echo json_encode(array($error_code));
 		exit();
 	}
-	// Функция конвертирования даты из формата MySQL в нормальный человеческий вид
-	public static function convertToDate($date) {
-		if(mb_strlen(trim($date)) == 0)
-			return "";
-		
-		$newDate = mb_substr($date, 8, 2);
-		$newDate .= "." . mb_substr($date, 5, 2);
-		$newDate .= "." . mb_substr($date, 0, 4);
-		return $newDate;
-	}
-	
-	// Функция конвертирования даты из формата MySQL в нормальный человеческий вид
-	public static function convertToMySQLDateFormat($date) {
-		if(mb_strlen(trim($date)) == 0)
-			return "";
-		
-		$newDate = mb_substr($date, 6, 4);
-		$newDate .= "-" . mb_substr($date, 3, 2);
-		$newDate .= "-" . mb_substr($date, 0, 2);
-		return $newDate;
-	}
-
 	// Функция формирования SQL-запроса для сохранения/обновления информации о водителе
 	public static function generate_sql_query($flg_insert, $array_data, $nsyst = 0, $table) {
 		$sqlQuery = "";
@@ -52,9 +30,9 @@ class ServiceFunction {
 				
 				if($array_value_decode['type'] == 'char') {
 					if(mb_strlen($sql_value) == 0)
-						$sql_value = "'" . $array_value_decode['value'] . "'";
+						$sql_value = "'" . strip_tags($array_value_decode['value']) . "'";
 					else
-						$sql_value .= ",'" . $array_value_decode['value'] . "'";
+						$sql_value .= ",'" . strip_tags($array_value_decode['value']) . "'";
 				} else if($array_value_decode['type'] == 'date') {
 					
 					// Обработка даты особая, если дата пустая то вставляем пустое значение
@@ -162,6 +140,24 @@ class ServiceFunction {
 		if(!is_numeric($value))
 			return false;
 		
+		return true;
+	}
+	
+	public function check_field($array_data, &$message_error) {
+		if(!$array_data_decode = json_decode($array_data))
+			return false;
+		
+		foreach($array_data_decode as $field => $array_value) {
+			$array_value_decode = (array)$array_value;
+			
+			if($field == 'e_mail') {
+				if(preg_match('/\S+@\S+\.\S+/', $array_value_decode['value'], $matches) !== 1) {
+					$message_error = 'Не корректный email!';
+					return false;
+				}
+			}
+		}
+
 		return true;
 	}
 }

@@ -1,13 +1,7 @@
 <?php
-// Скрипт взаимодействия со справочниками.
-// В данный скрипт необходимо помещать только функции, которые необходимы для работы со справочникаим.
-// Используем идею разграничения кода
-	
-	//require_once('../classes/Spr.php');
 	require_once('../classes/Sessions.php');
 	require_once('../classes/User.php');
 	require_once('../classes/Tasks.php');
-	//require_once('../classes/Rights.php');
 	
 	setlocale(LC_CTYPE, 'ru_RU.UTF8');
 
@@ -21,7 +15,7 @@
 		
 		$html = "<nav>";
 		$html .= "<ul class='pagination justify-content-center'>";
-		for($i = 1; $i < $count_page; $i++) {
+		for($i = 1; $i <= $count_page; $i++) {
 			$active = ($page == $i) ? ' active ': '';
 			$html .= "<li class='page-item " . $active . "'><button class='page-link' data-page='" . $i . "'>" . $i . "</button></li>";
 		}
@@ -35,8 +29,10 @@
 			return false;
 
 		$tasks = new Tasks();
-		if($tasks->save($_POST) === false)
-			return false;
+		if($tasks->save($_POST, $msg_error) === false) {
+			echo json_encode(array(-2, $msg_error));
+			return true;
+		}
 		echo json_encode(array(1));
 		return true;
 	}
@@ -93,7 +89,7 @@
 					. "</div>"
 					. "<div id='" . $id_collapse . "' class='collapse show' aria-labelledby='" . $id . "' data-parent='#accordion'>"
 						. "<div class='card-body'>"
-							. $data[$i]['text_task']
+							. strip_tags($data[$i]['text_task'])
 						. "</div>"
 					. "</div>"
 				. "</div>";

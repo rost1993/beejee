@@ -35,6 +35,12 @@ $(function () {
 	
 	// Save task
 	$('#btnSaveTask').click(function() {
+		/*var reg = /\S+@\S+\.\S+/;
+		if(!reg.test($('#e_mail').val())) {
+			showModal('ModalWindow', 'Некорректный email!');
+			return;
+		}*/
+		
 		var arrSaveItem = {};		
 		var resultCollectionsItems = getArrayItemsForms('#ModalWindowTask input, #ModalWindowTask textarea');
 		if(resultCollectionsItems[0]) {
@@ -42,13 +48,15 @@ $(function () {
 		} else {
 			showModal('ModalWindow', resultCollectionsItems[1]);
 			return;
-		}	
+		}
 		
 		var query = 'option=2&JSON=' + JSON.stringify(arrSaveItem) + '&nsyst=' + $(this).data('id');		
 		AjaxQuery('POST', PATH_TO_SCRIPT + 'list-tasks-events.php', query, function(result) {
 			var res = eval(result);
 			if(res[0] == -1) {
 				showModal('ModalWindow', 'При обработке запроса произошла ошибка! Повторите запрос!');
+			} else if(res[0] == -2) {
+				showModal('ModalWindow', res[1]);
 			} else if(res[0] == 1) {
 				closeModal('ModalWindowTask');
 			} else {
