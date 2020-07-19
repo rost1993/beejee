@@ -7,9 +7,11 @@
 		$root .= '/BeeJee';
 	
 	// Разбиваем путь по слэшам, и берем последний скрипт
-	$arr_page = explode("/", $_SERVER['PHP_SELF']);
+	/*$arr_page = explode("/", $_SERVER['PHP_SELF']);
 	$col = count($arr_page);
-	$page = $arr_page[$col - 1];
+	$page = $arr_page[$col - 1];*/
+	
+	$root = "../";
 	
 	// В первую очередь подгружаем JS скрипты, которые отвечают за основной функционал сайта
 	echo "<script src='" . $root . "/js/other-js/jquery-3.3.1.min.js?ver=1'></script>";

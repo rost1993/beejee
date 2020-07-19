@@ -56,7 +56,7 @@
 			$navbar2 = "<ul class='navbar-nav mr-auto'>"
 						
 						. "<li class='nav-item'>"
-							. "<a class='text-white nav-link' id='contacts' href='" . $root . "/pages/list-tasks.php' title='ЖУРНАЛ УЧЕТА '>Журнал учета</a>"
+							. "<a class='text-white nav-link' id='list-tasks' href='" . $root . "/pages/list-tasks.php' title='Список задач'>Список задач</a>"
 						. "</li>"
 						. "</ul>"
 					. "<ul class='navbar-nav navbar-right'>"

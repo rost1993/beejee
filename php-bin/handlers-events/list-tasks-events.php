@@ -72,6 +72,7 @@
 			$html_admin_panel = '';
 			if($role == 1) {
 				$html_admin_panel = "<div class='btn-group' role='group' style='position: absolute; top:0; right: 0;'>"
+					. "<button class='btn btn-sm btn-success btnCheckTask' data-id='" . $data[$i]['id'] . "' title='Изменить статус'><span class='fa fa-check'></span></button>"
 					. "<button class='btn btn-sm btn-info btnEditTask' data-id='" . $data[$i]['id'] . "' title='Редактировать'><span class='fa fa-pencil'></span></button>"
 					. "<button class='btn btn-sm btn-danger btnRemoveTask' data-id='" . $data[$i]['id'] . "' title='Удалить'><span class='fa fa-remove'></span></button>"
 				. "</div>";
@@ -79,11 +80,13 @@
 			
 			$id = 'task_' . $i;
 			$id_collapse = "collapse_" . $i;
+			$status = ($data[$i]['status'] == 0) ? 'НА ИСПОЛНЕНИИ' : 'ИСПОЛНЕНО';
+			
 			$html .= "<div class='card mb-2'>"
 					. "<div class='card-header' id='" . $id . "'>"
 							. "<h5 class='mb-0'>"
 								. "<button class='btn btn-link' data-toggle='collapse' data-target='#" . $id_collapse . "' aria-expanded='false' aria-controls='" . $id_collapse . "'>"
-								. "Имя пользователя:&nbsp;" . $data[$i]['name_user'] . "<br>E-mail:&nbsp;" . $data[$i]['e_mail']
+								. "Имя пользователя:&nbsp;" . $data[$i]['name_user'] . "<br>E-mail:&nbsp;" . $data[$i]['e_mail'] . "<br>Статус:&nbsp;" . $status
 								. "</button>"
 								. $html_admin_panel
 							. "</h5>"
@@ -97,6 +100,17 @@
 		}
 
 		return $html;
+	}
+	
+	function change_status() {
+		if(empty($_POST['id']))
+			return false;
+		
+		$tasks = new Tasks();
+		if(($tasks->change_status(addslashes($_POST['id']))) === false)
+			return false;
+		echo json_encode(array(1));
+		return true;
 	}
 	
 	function remove(){
@@ -151,6 +165,11 @@
 		
 		case 4:
 			if(!edit())
+				ServiceFunction::returnErrorCode(-1);
+			break;
+		
+		case 5:
+			if(!change_status())
 				ServiceFunction::returnErrorCode(-1);
 			break;
 

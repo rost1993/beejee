@@ -133,5 +133,18 @@ $(function () {
 			}
 		});
 	});
+	
+	$('#accordion').on('click', '.btnCheckTask', function() {
+		AjaxQuery('POST', PATH_TO_SCRIPT + 'list-tasks-events.php', 'option=5&id=' + $(this).data('id'), function(result) {
+			var res = eval(result);
+			if(res[0] == -1) {
+				showModal('ModalWindow', 'При обработке запроса произошла ошибка! Повторите запрос!');
+			} else if(res[0] == 1) {
+				showModal('ModalWindow', 'Статус изменен обновите страницу!');
+			} else {
+				showModal('ModalWindow', 'При обработке запроса произошла непредвиденная ошибка!');
+			}
+		});
+	});
 });
 

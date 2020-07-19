@@ -82,6 +82,18 @@ class Tasks {
 			return false;
 		return $mysql->resultQuery;
 	}
+	
+	public function change_status($id) {
+		if(!ServiceFunction::check_number($id))
+			return false;
+		
+		$sqlQuery = "UPDATE " . $this->table . " SET status=MOD(status + 1, 2)  WHERE id=" . $id;
+		$mysql = new mysqlRun();
+		if(!$mysql->mysqlQuery($sqlQuery, mysqlRun::MYSQL_OTHER))
+			return false;
+		
+		return true;
+	}
 
 }
 
