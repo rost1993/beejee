@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Июл 18 2020 г., 18:42
+-- Время создания: Июл 19 2020 г., 20:25
 -- Версия сервера: 10.4.11-MariaDB
 -- Версия PHP: 7.4.4
 
@@ -26,10 +26,23 @@ USE `beejee`;
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `list_tasks`
+--
+
+CREATE TABLE `list_tasks` (
+  `id` int(11) NOT NULL,
+  `name_user` varchar(50) DEFAULT NULL,
+  `e_mail` varchar(50) DEFAULT NULL,
+  `text_task` text DEFAULT NULL,
+  `status` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `users`
 --
 
-DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `login` varchar(20) NOT NULL,
@@ -42,12 +55,18 @@ CREATE TABLE `users` (
 -- Дамп данных таблицы `users`
 --
 
-INSERT DELAYED INTO `users` (`id`, `login`, `hash_pass`, `role`, `access`) VALUES
-(1, 'test', '$2y$10$Ko93.UHZHQiSbHfcva7yGu/S.IfD85VSdDadqJfwKVxwxDwDhwPPC', 1, 1);
+INSERT INTO `users` (`id`, `login`, `hash_pass`, `role`, `access`) VALUES
+(1, 'admin', '$2y$10$Ko93.UHZHQiSbHfcva7yGu/S.IfD85VSdDadqJfwKVxwxDwDhwPPC', 1, 1);
 
 --
 -- Индексы сохранённых таблиц
 --
+
+--
+-- Индексы таблицы `list_tasks`
+--
+ALTER TABLE `list_tasks`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Индексы таблицы `users`
@@ -58,6 +77,12 @@ ALTER TABLE `users`
 --
 -- AUTO_INCREMENT для сохранённых таблиц
 --
+
+--
+-- AUTO_INCREMENT для таблицы `list_tasks`
+--
+ALTER TABLE `list_tasks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT для таблицы `users`
