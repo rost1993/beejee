@@ -1,16 +1,4 @@
 <?php
-	// Наиболее часто встречающиеся CSS-скрипты
-	$root = 'http://' . $_SERVER['HTTP_HOST'];
-	
-	// Разбиваем путь по слэшам, и берем последний скрипт
-	$arr_page = explode("/", $_SERVER['PHP_SELF']);
-	$col = count($arr_page);
-	$page = $arr_page[$col - 1];
-	
-	/*$root_array = explode("/", $root_web);
-	if($root_array[count($root_web_array) - 1] != 'BeeJee')
-		$root .= '/BeeJee';*/
-	
 	$root = "../";
 	
 	echo "<!DOCTYPE HTML>";
